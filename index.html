@@ -3,55 +3,538 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error 0x000C0RRUPT</title>
+    <title>Error del Sistema</title>
     <style>
         body {
-            background: black;
-            color: #0f0;
-            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 0;
+            background-color: #000080; /* Azul de pantalla de error clásica */
+            color: white;
+            font-family: "Consolas", monospace;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             overflow: hidden;
+            cursor: none;
+            position: relative;
         }
-        .glitch {
+        .container {
+            width: 80%;
+            max-width: 800px;
+            position: relative;
+            z-index: 10;
+        }
+        .header {
             font-size: 24px;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            text-shadow: 5px 5px 10px red;
-            animation: glitch 0.2s infinite alternate;
+            margin-bottom: 20px;
         }
-        @keyframes glitch {
-            0% { transform: translate(-50%, -50%) skewX(0deg); }
-            25% { transform: translate(-48%, -52%) skewX(-10deg); }
-            50% { transform: translate(-50%, -50%) skewX(10deg); }
-            75% { transform: translate(-52%, -48%) skewX(-5deg); }
-            100% { transform: translate(-50%, -50%) skewX(0deg); }
+        .error-code {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        .message {
+            font-size: 18px;
+            line-height: 1.5;
+            text-align: left;
+            margin-bottom: 40px;
+        }
+        .countdown {
+            font-size: 20px;
+            margin-top: 30px;
+        }
+        .blink {
+            animation: blink 0.5s step-end infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        .shake {
+            animation: shake 0.3s ease-in-out infinite;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-15px); }
+            40%, 80% { transform: translateX(15px); }
+        }
+        .glitch-text {
+            position: relative;
+            display: inline-block;
+        }
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000080;
+        }
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -2px 0 red;
+            animation: glitch-animation 0.8s infinite;
+        }
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: 2px 0 blue;
+            animation: glitch-animation 0.8s infinite reverse;
+        }
+        @keyframes glitch-animation {
+            0% {
+                clip-path: inset(0 0 98% 0);
+            }
+            5% {
+                clip-path: inset(70% 0 12% 0);
+            }
+            10% {
+                clip-path: inset(30% 0 58% 0);
+            }
+            15% {
+                clip-path: inset(90% 0 1% 0);
+            }
+            20% {
+                clip-path: inset(24% 0 71% 0);
+            }
+            25% {
+                clip-path: inset(4% 0 87% 0);
+            }
+            30% {
+                clip-path: inset(75% 0 19% 0);
+            }
+            35% {
+                clip-path: inset(54% 0 38% 0);
+            }
+            40% {
+                clip-path: inset(10% 0 84% 0);
+            }
+            45% {
+                clip-path: inset(65% 0 32% 0);
+            }
+            50% {
+                clip-path: inset(39% 0 54% 0);
+            }
+            55% {
+                clip-path: inset(81% 0 9% 0);
+            }
+            60% {
+                clip-path: inset(15% 0 79% 0);
+            }
+            65% {
+                clip-path: inset(45% 0 50% 0);
+            }
+            70% {
+                clip-path: inset(95% 0 5% 0);
+            }
+            75% {
+                clip-path: inset(2% 0 94% 0);
+            }
+            80% {
+                clip-path: inset(60% 0 39% 0);
+            }
+            85% {
+                clip-path: inset(35% 0 59% 0);
+            }
+            90% {
+                clip-path: inset(85% 0 11% 0);
+            }
+            95% {
+                clip-path: inset(18% 0 79% 0);
+            }
+            100% {
+                clip-path: inset(0 0 98% 0);
+            }
+        }
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.1;
+            z-index: 100;
+            background-image: url('data:image/png;base64,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');
+            animation: noise 0.2s infinite;
+        }
+        @keyframes noise {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -5%); }
+            20% { transform: translate(-10%, 5%); }
+            30% { transform: translate(5%, -10%); }
+            40% { transform: translate(-5%, 15%); }
+            50% { transform: translate(-10%, 5%); }
+            60% { transform: translate(15%, 0); }
+            70% { transform: translate(0, 10%); }
+            80% { transform: translate(-15%, 0); }
+            90% { transform: translate(10%, 5%); }
+        }
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0) 50%,
+                rgba(0, 0, 0, 0.2) 50%,
+                rgba(0, 0, 0, 0.2)
+            );
+            background-size: 100% 4px;
+            z-index: 102;
+        }
+        .color-shift {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            mix-blend-mode: screen;
+            opacity: 0.1;
+            z-index: 103;
+            background: linear-gradient(
+                45deg,
+                red,
+                blue
+            );
+            animation: colorshift 2s infinite alternate;
+        }
+        @keyframes colorshift {
+            0% { opacity: 0.1; }
+            100% { opacity: 0.3; }
+        }
+        .glitch-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 104;
+            opacity: 0;
+            background-color: rgba(0, 255, 255, 0.2);
+            animation: glitch-flash 0.3s infinite;
+        }
+        @keyframes glitch-flash {
+            0%, 95% { opacity: 0; }
+            96%, 100% { opacity: 1; }
+        }
+        .horizontal-glitch {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 105;
+        }
+        .h-glitch-line {
+            position: absolute;
+            width: 100%;
+            height: 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+            animation: h-glitch-move 3s infinite;
+        }
+        @keyframes h-glitch-move {
+            0% { top: -100px; }
+            100% { top: 100%; }
+        }
+        .glitch-chunks {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 106;
+            opacity: 0;
+        }
+        .chunk {
+            position: absolute;
+            height: 30px;
+            width: 100%;
+            background-color: #000080;
+            display: flex;
+            align-items: center;
+            animation: chunk-glitch 1s infinite;
+        }
+        @keyframes chunk-glitch {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; transform: translateX(-20px); }
+            51% { opacity: 1; transform: translateX(20px); }
+            52% { opacity: 0; transform: none; }
+        }
+        .fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000080;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
     </style>
-    <script>
-        window.onload = function() {
-
-            setTimeout(() => {
-                document.body.innerHTML = "<h1 class='glitch'>El ente espera paciente</h1>";
-            }, 1000);
-
-            setInterval(() => {
-                document.body.style.background = 
-                    document.body.style.background === "black" ? "red" : "black";
-            }, 500);
-
-            setInterval(() => { navigator.vibrate(200); }, 3000);
-
-            setTimeout(() => {
-                document.body.innerHTML = "<h1 class='glitch'>📵 PAGA </h1>";
-                setTimeout(() => { document.body.innerHTML = ""; }, 6000);
-            }, 8000);
-        };
-    </script>
 </head>
 <body>
-    <h1 class="glitch">Cargando...</h1>
+    <div class="noise"></div>
+    <div class="scanlines"></div>
+    <div class="color-shift"></div>
+    <div class="glitch-overlay"></div>
+    <div class="horizontal-glitch">
+        <div class="h-glitch-line"></div>
+    </div>
+    <div class="glitch-chunks" id="glitchChunks"></div>
+    
+    <div class="container">
+        <div class="glitch-text header" data-text="ERROR CRÍTICO DEL SISTEMA">
+            ERROR CRÍTICO DEL SISTEMA
+        </div>
+        <div class="error-code">
+            CÓDIGO DE ERROR: <span class="glitch-text" data-text="0x000000ED (UNMOUNTABLE_BOOT_VOLUME)">0x000000ED (UNMOUNTABLE_BOOT_VOLUME)</span>
+        </div>
+        <div class="message">
+            Se ha detectado un problema crítico y se ha bloqueado el sistema para evitar daños adicionales. El sistema ha encontrado datos inaccesibles en el dispositivo de arranque.
+            <br><br>
+            Información técnica:
+            <br>
+            <span class="glitch-text" data-text="*** STOP: 0x000000ED (0x80F128D0, 0xC000009C, 0x00000000, 0x00000000)">*** STOP: 0x000000ED (0x80F128D0, 0xC000009C, 0x00000000, 0x00000000)</span>
+            <br><br>
+            El sistema está recopilando información sobre el error y se reiniciará automáticamente.
+        </div>
+        <div class="countdown">
+            Reiniciando en <span id="countdown" class="blink">100</span> segundos...
+        </div>
+    </div>
+    
+    <script>
+        // Variables para el contador
+        let countdown = 100;
+        const countdownElement = document.getElementById('countdown');
+        
+        // Lista de códigos de error para variar
+        const errorCodes = [
+            "0x000000ED (UNMOUNTABLE_BOOT_VOLUME)",
+            "0x0000007B (INACCESSIBLE_BOOT_DEVICE)",
+            "0x00000050 (PAGE_FAULT_IN_NONPAGED_AREA)",
+            "0x0000000A (IRQL_NOT_LESS_OR_EQUAL)",
+            "0x0000001E (KMODE_EXCEPTION_NOT_HANDLED)"
+        ];
+        
+        // Lista de mensajes técnicos
+        const techMessages = [
+            "*** STOP: 0x000000ED (0xELC, 0xENTE, 0xSE, 0xENFADANDO)",
+            "*** STOP: 0x000000ED (EL ENTE SE ESTÁ ENFADANDO)",
+            "*** STOP: 0x000000ED (0xELC, 0xENTE, 0xSE, 0xESTÁ, 0xENFADANDO)",
+            "*** STOP: 0x000000ED (EL ENTE SE ESTÁ ENFADANDO)"
+        ];
+
+        // Crear bloques de glitch
+        function createGlitchChunks() {
+            const container = document.getElementById('glitchChunks');
+            container.innerHTML = '';
+            const numChunks = 5;
+            
+            for (let i = 0; i < numChunks; i++) {
+                const chunk = document.createElement('div');
+                chunk.className = 'chunk';
+                chunk.style.top = `${Math.random() * 100}%`;
+                chunk.style.animationDelay = `${Math.random() * 2}s`;
+                container.appendChild(chunk);
+            }
+        }
+        
+        // Función para actualizar los mensajes
+        function updateMessages() {
+            const errorCodeElement = document.querySelector('.error-code');
+            const messageElement = document.querySelector('.message');
+            
+            const randomErrorIndex = Math.floor(Math.random() * errorCodes.length);
+            const randomTechIndex = Math.floor(Math.random() * techMessages.length);
+            
+            errorCodeElement.innerHTML = "CÓDIGO DE ERROR: <span class='glitch-text' data-text='" + errorCodes[randomErrorIndex] + "'>" + errorCodes[randomErrorIndex] + "</span>";
+            
+            let message = "Se ha detectado un problema crítico y se ha bloqueado el sistema para evitar daños adicionales.";
+            message += "<br><br>Información técnica:<br><span class='glitch-text' data-text='" + techMessages[randomTechIndex] + "'>" + techMessages[randomTechIndex] + "</span>";
+            message += "<br><br>El sistema está recopilando información sobre el error y se reiniciará automáticamente.";
+            
+            messageElement.innerHTML = message;
+        }
+        
+        // Función para simular glitches aleatorios
+        function simulateGlitch() {
+            // Aplicar efecto de sacudida
+            document.body.classList.add('shake');
+            setTimeout(() => {
+                document.body.classList.remove('shake');
+            }, 500);
+            
+            // Cambiar color de fondo aleatoriamente
+            const colors = ['#000080', '#000', '#800000', '#003366', '#004080'];
+            document.body.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            setTimeout(() => {
+                document.body.style.backgroundColor = "#000080";
+            }, 100);
+            
+            // Mostrar bloques de glitch
+            document.querySelector('.glitch-chunks').style.opacity = '1';
+            setTimeout(() => {
+                document.querySelector('.glitch-chunks').style.opacity = '0';
+            }, 200);
+            
+            // Actualizar mensajes
+            if (Math.random() > 0.3) {
+                updateMessages();
+            }
+            
+            // Recrear bloques de glitch
+            createGlitchChunks();
+            
+            // Intensificar glitch visual
+            document.querySelector('.noise').style.opacity = '0.3';
+            setTimeout(() => {
+                document.querySelector('.noise').style.opacity = '0.1';
+            }, 200);
+            
+            // Distorsionar texto
+            const textElements = document.querySelectorAll('.glitch-text');
+            textElements.forEach(el => {
+                el.style.letterSpacing = `${Math.random() * 5 - 2.5}px`;
+                setTimeout(() => {
+                    el.style.letterSpacing = '0';
+                }, 300);
+            });
+        }
+        
+        // Función para bloquear teclas
+        function blockKeys(e) {
+            e.preventDefault();
+            simulateGlitch();
+            return false;
+        }
+        
+        // Función para bloquear el ratón derecho
+        function blockRightClick(e) {
+            e.preventDefault();
+            simulateGlitch();
+            return false;
+        }
+        
+        // Función para manejar el intento de salir
+        function handleVisibilityChange() {
+            if (document.visibilityState === 'hidden') {
+                // El usuario intenta salir, puede intensificar el efecto cuando regrese
+                countdown = Math.max(countdown - 10, 10);
+            }
+        }
+        
+        // Configurar eventos para bloquear controles
+        document.addEventListener('keydown', blockKeys);
+        document.addEventListener('contextmenu', blockRightClick);
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+        document.addEventListener('click', simulateGlitch);
+        document.addEventListener('mousemove', function(e) {
+            if (Math.random() > 0.95) {
+                simulateGlitch();
+            }
+        });
+        
+        // Crear bloques de glitch iniciales
+        createGlitchChunks();
+        
+        // Intervalo principal
+        const interval = setInterval(() => {
+            // Decrementar el contador
+            countdown--;
+            countdownElement.textContent = countdown;
+            
+            // Simular glitches aleatorios
+            if (Math.random() > 0.5) {
+                simulateGlitch();
+            }
+            
+            // Cuando el contador llega a cero
+            if (countdown <= 0) {
+                clearInterval(interval);
+                
+                // Crear elemento de pantalla completa para el mensaje final
+                const fullscreen = document.createElement('div');
+                fullscreen.className = 'fullscreen';
+                
+                const finalMessage = document.createElement('div');
+                finalMessage.className = 'glitch-text';
+                finalMessage.setAttribute('data-text', 'ACCESO COMPROMETIDO');
+                subMessage.innerHTML = "EL ENTE HA HABLADO";
+                finalMessage.style.fontSize = '32px';
+                finalMessage.innerHTML = "ACCESO COMPROMETIDO<br>SE HA DETECTADO ACTIVIDAD SOSPECHOSA";
+                subMessage.innerHTML = "EL ENTE HA HABLADO";
+                
+                const subMessage = document.createElement('div');
+                subMessage.className = 'glitch-text';
+                subMessage.setAttribute('data-text', 'Recopilando información del sistema...');
+                subMessage.innerHTML = "EL ENTE HA HABLADO";
+                subMessage.style.fontSize = '20px';
+                subMessage.style.marginTop = '20px';
+                subMessage.innerHTML = "Recopilando información del sistema...";
+                subMessage.innerHTML = "EL ENTE HA HABLADO";
+                
+                fullscreen.appendChild(finalMessage);
+                fullscreen.appendChild(subMessage);
+                document.body.appendChild(fullscreen);
+                
+                // Intensificar glitch final
+                setInterval(() => {
+                    simulateGlitch();
+                }, 200);
+                
+                // Después de un momento, restaurar la página
+                setTimeout(() => {
+                    document.body.innerHTML = '<div style="font-size: 24px; padding: 20px;" class="glitch-text" data-text="¡Era solo una broma!">¡Era solo una broma!<br><br>Presiona F5 para salir.</div>';
+                    document.body.style.backgroundColor = '#000';
+                    document.body.style.cursor = 'default';
+                    document.removeEventListener('keydown', blockKeys);
+                    document.removeEventListener('contextmenu', blockRightClick);
+                }, 5000);
+            }
+        }, 300);
+        
+        // Iniciar con un glitch
+        simulateGlitch();
+        
+        // Añadir glitches periódicos fuertes
+        setInterval(() => {
+            // Efecto de distorsión severa
+            document.body.style.filter = `hue-rotate(${Math.random() * 360}deg)`;
+            setTimeout(() => {
+                document.body.style.filter = 'none';
+            }, 100);
+            
+            // Desplazar todo el contenido brevemente
+            document.querySelector('.container').style.transform = `translateX(${Math.random() * 40 - 20}px) translateY(${Math.random() * 40 - 20}px)`;
+            setTimeout(() => {
+                document.querySelector('.container').style.transform = 'none';
+            }, 150);
+            
+            // Cambiar opacidad de layers
+            document.querySelectorAll('.scanlines, .color-shift, .glitch-overlay').forEach(el => {
+                el.style.opacity = `${Math.random() * 0.5}`;
+                setTimeout(() => {
+                    el.style.opacity = '';
+                }, 200);
+            });
+            
+        }, 2000);
+    </script>
 </body>
 </html>
-

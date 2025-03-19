@@ -31,8 +31,11 @@
     </style>
     <script>
         window.onload = function() {
+            
             setTimeout(() => {
                 document.body.innerHTML = "<h1 class='glitch'>ERROR 0x000C0RRUPT</h1>";
+                let audio = new Audio("https://www.myinstants.com/media/sounds/creepy-glitch-sound.mp3");
+                audio.play();
             }, 2000);
 
             setInterval(() => {
@@ -41,11 +44,6 @@
             }, 500);
 
             setInterval(() => { navigator.vibrate(200); }, 3000);
-
-            setTimeout(() => {
-                let audio = new Audio("https://www.myinstants.com/media/sounds/windows-xp-error.mp3");
-                audio.play();
-            }, 5000);
 
             setTimeout(() => {
                 document.body.innerHTML = "<h1 class='glitch'>📵 PAGA </h1>";
@@ -58,3 +56,4 @@
     <h1 class="glitch">Cargando...</h1>
 </body>
 </html>
+

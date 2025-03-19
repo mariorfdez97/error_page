@@ -31,12 +31,18 @@
     </style>
     <script>
         window.onload = function() {
+
+            setTimeout(() => {
+                document.body.innerHTML = "<h1 class='glitch'>El ente espera paciente</h1>";
+                let audio = new Audio("https://www.myinstants.com/media/sounds/creepy-glitch-sound.mp3");
+                audio.play();
+            }, 1000);
             
             setTimeout(() => {
                 document.body.innerHTML = "<h1 class='glitch'>ERROR 0x000C0RRUPT</h1>";
                 let audio = new Audio("https://www.myinstants.com/media/sounds/creepy-glitch-sound.mp3");
                 audio.play();
-            }, 2000);
+            }, 1000);
 
             setInterval(() => {
                 document.body.style.background = 

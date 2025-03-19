@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error del Sistema</title>
+    <title>El Ente Observa</title>
     <style>
         body {
             margin: 0;
@@ -298,23 +298,23 @@
     <div class="glitch-chunks" id="glitchChunks"></div>
     
     <div class="container">
-        <div class="glitch-text header" data-text="ERROR CRÍTICO DEL SISTEMA">
-            ERROR CRÍTICO DEL SISTEMA
+        <div class="glitch-text header" data-text="EL ENTE TE OBSERVA">
+            EL ENTE TE OBSERVA
         </div>
         <div class="error-code">
-            CÓDIGO DE ERROR: <span class="glitch-text" data-text="0x000000ED (UNMOUNTABLE_BOOT_VOLUME)">0x000000ED (UNMOUNTABLE_BOOT_VOLUME)</span>
+            CÓDIGO DE ERROR: <span class="glitch-text" data-text="0xDEAD0666 (ENTE_DISPLEASED)">0xDEAD0666 (ENTE_DISPLEASED)</span>
         </div>
         <div class="message">
-            Se ha detectado un problema crítico y se ha bloqueado el sistema para evitar daños adicionales. El sistema ha encontrado datos inaccesibles en el dispositivo de arranque.
+            Se ha detectado un problema crítico. El sistema ha sido comprometido por una entidad desconocida.
             <br><br>
             Información técnica:
             <br>
-            <span class="glitch-text" data-text="*** STOP: 0x000000ED (0x80F128D0, 0xC000009C, 0x00000000, 0x00000000)">*** STOP: 0x000000ED (0x80F128D0, 0xC000009C, 0x00000000, 0x00000000)</span>
+            <span class="glitch-text" data-text="*** ALERTA: EL ENTE ESTÁ DESPIERTO Y DISCONFORME CON TUS ACCIONES ***">*** ALERTA: EL ENTE ESTÁ DESPIERTO Y DISCONFORME CON TUS ACCIONES ***</span>
             <br><br>
-            El sistema está recopilando información sobre el error y se reiniciará automáticamente.
+            El sistema está siendo vigilado. No intentes escapar.
         </div>
         <div class="countdown">
-            Reiniciando en <span id="countdown" class="blink">100</span> segundos...
+            Juicio inminente en <span id="countdown" class="blink">100</span> segundos...
         </div>
     </div>
     
@@ -325,19 +325,19 @@
         
         // Lista de códigos de error para variar
         const errorCodes = [
-            "0x000000ED (UNMOUNTABLE_BOOT_VOLUME)",
-            "0x0000007B (INACCESSIBLE_BOOT_DEVICE)",
-            "0x00000050 (PAGE_FAULT_IN_NONPAGED_AREA)",
-            "0x0000000A (IRQL_NOT_LESS_OR_EQUAL)",
-            "0x0000001E (KMODE_EXCEPTION_NOT_HANDLED)"
+            "0xDEAD0666 (ENTE_DISPLEASED)",
+            "0xDEAD0777 (ENTE_WATCHING)",
+            "0xDEAD0888 (ENTE_AWAKENED)",
+            "0xDEAD0999 (ENTE_ENRAGED)",
+            "0xDEAD1010 (ENTE_JUDGING)"
         ];
         
         // Lista de mensajes técnicos
         const techMessages = [
-            "*** STOP: 0x000000ED (0xELC, 0xENTE, 0xSE, 0xENFADANDO)",
-            "*** STOP: 0x000000ED (EL ENTE SE ESTÁ ENFADANDO)",
-            "*** STOP: 0x000000ED (0xELC, 0xENTE, 0xSE, 0xESTÁ, 0xENFADANDO)",
-            "*** STOP: 0x000000ED (EL ENTE SE ESTÁ ENFADANDO)"
+            "*** ALERTA: EL ENTE ESTÁ DESPIERTO Y DISCONFORME CON TUS ACCIONES ***",
+            "*** ALERTA: EL ENTE VIGILA TUS MOVIMIENTOS Y CONOCE TUS PECADOS ***",
+            "*** ALERTA: EL ENTE SE ACERCA. NO PUEDES ESCAPAR DE SU MIRADA ***",
+            "*** ALERTA: EL ENTE ESTÁ FURIOSO. TU ALMA SERÁ JUZGADA ***"
         ];
 
         // Crear bloques de glitch
@@ -365,9 +365,9 @@
             
             errorCodeElement.innerHTML = "CÓDIGO DE ERROR: <span class='glitch-text' data-text='" + errorCodes[randomErrorIndex] + "'>" + errorCodes[randomErrorIndex] + "</span>";
             
-            let message = "Se ha detectado un problema crítico y se ha bloqueado el sistema para evitar daños adicionales.";
+            let message = "Se ha detectado un problema crítico. El sistema ha sido comprometido por una entidad desconocida.";
             message += "<br><br>Información técnica:<br><span class='glitch-text' data-text='" + techMessages[randomTechIndex] + "'>" + techMessages[randomTechIndex] + "</span>";
-            message += "<br><br>El sistema está recopilando información sobre el error y se reiniciará automáticamente.";
+            message += "<br><br>El sistema está siendo vigilado. No intentes escapar.";
             
             messageElement.innerHTML = message;
         }
@@ -381,7 +381,7 @@
             }, 500);
             
             // Cambiar color de fondo aleatoriamente
-            const colors = ['#000080', '#000', '#800000', '#003366', '#004080'];
+            const colors = ['#000080', '#000', '#800000', '#330000', '#400040'];
             document.body.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
             setTimeout(() => {
                 document.body.style.backgroundColor = "#000080";
@@ -474,20 +474,16 @@
                 
                 const finalMessage = document.createElement('div');
                 finalMessage.className = 'glitch-text';
-                finalMessage.setAttribute('data-text', 'ACCESO COMPROMETIDO');
-                subMessage.innerHTML = "EL ENTE HA HABLADO";
+                finalMessage.setAttribute('data-text', 'EL ENTE JUZGA Y OBSERVA');
                 finalMessage.style.fontSize = '32px';
-                finalMessage.innerHTML = "ACCESO COMPROMETIDO<br>SE HA DETECTADO ACTIVIDAD SOSPECHOSA";
-                subMessage.innerHTML = "EL ENTE HA HABLADO";
+                finalMessage.innerHTML = "EL ENTE JUZGA Y OBSERVA";
                 
                 const subMessage = document.createElement('div');
                 subMessage.className = 'glitch-text';
-                subMessage.setAttribute('data-text', 'Recopilando información del sistema...');
-                subMessage.innerHTML = "EL ENTE HA HABLADO";
+                subMessage.setAttribute('data-text', 'TU ALMA HA SIDO REGISTRADA');
                 subMessage.style.fontSize = '20px';
                 subMessage.style.marginTop = '20px';
-                subMessage.innerHTML = "Recopilando información del sistema...";
-                subMessage.innerHTML = "EL ENTE HA HABLADO";
+                subMessage.innerHTML = "TU ALMA HA SIDO REGISTRADA";
                 
                 fullscreen.appendChild(finalMessage);
                 fullscreen.appendChild(subMessage);
@@ -497,15 +493,6 @@
                 setInterval(() => {
                     simulateGlitch();
                 }, 200);
-                
-                // Después de un momento, restaurar la página
-                setTimeout(() => {
-                    document.body.innerHTML = '<div style="font-size: 24px; padding: 20px;" class="glitch-text" data-text="¡Era solo una broma!">¡Era solo una broma!<br><br>Presiona F5 para salir.</div>';
-                    document.body.style.backgroundColor = '#000';
-                    document.body.style.cursor = 'default';
-                    document.removeEventListener('keydown', blockKeys);
-                    document.removeEventListener('contextmenu', blockRightClick);
-                }, 5000);
             }
         }, 300);
         
